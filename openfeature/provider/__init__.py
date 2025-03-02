@@ -141,10 +141,10 @@ class AbstractProvider(FeatureProvider):
             del self._on_emit
 
     def initialize(self, evaluation_context: EvaluationContext) -> None:
-        pass
+        self._status = ProviderStatus.READY
 
     def shutdown(self) -> None:
-        pass
+        self._status = ProviderStatus.NOT_READY
 
     @abstractmethod
     def get_metadata(self) -> Metadata:
