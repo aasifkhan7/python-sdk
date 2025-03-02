@@ -23,6 +23,9 @@ class ProviderStatus(Enum):
 
 
 class FeatureProvider(typing.Protocol):  # pragma: no cover
+    @property
+    def status(self) -> ProviderStatus: ...
+
     def attach(
         self,
         on_emit: typing.Callable[
@@ -115,6 +118,14 @@ class AbstractProvider(FeatureProvider):
     def __init__(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         # this makes sure to invoke the parent of `FeatureProvider` -> `object`
         super(FeatureProvider, self).__init__(*args, **kwargs)
+
+    @property
+    def status(self) -> ProviderStatus:
+        return self._status
+
+    @status.setter
+    def status(self, value: ProviderStatus) -> None:
+        self._status = value
 
     def attach(
         self,
