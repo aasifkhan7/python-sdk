@@ -6,6 +6,9 @@ class TestProvider(AbstractProvider):
     def get_metadata(self):
         return None
 
+    def initialize(self, evaluation_context: EvaluationContext) -> None:
+        super().initialize(evaluation_context)
+
     def resolve_boolean_details(self, flag_key, default_value, evaluation_context=None):
         return None
 
