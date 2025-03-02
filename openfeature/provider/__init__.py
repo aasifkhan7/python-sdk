@@ -118,6 +118,7 @@ class AbstractProvider(FeatureProvider):
     def __init__(self, *args: typing.Any, **kwargs: typing.Any) -> None:
         # this makes sure to invoke the parent of `FeatureProvider` -> `object`
         super(FeatureProvider, self).__init__(*args, **kwargs)
+        self._status: ProviderStatus = ProviderStatus.NOT_READY
 
     @property
     def status(self) -> ProviderStatus:
