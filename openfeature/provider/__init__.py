@@ -239,6 +239,7 @@ class AbstractProvider(FeatureProvider):
         return self.resolve_object_details(flag_key, default_value, evaluation_context)
 
     def emit_provider_ready(self, details: ProviderEventDetails) -> None:
+        self.status = ProviderStatus.READY
         self.emit(ProviderEvent.PROVIDER_READY, details)
 
     def emit_provider_configuration_changed(
@@ -247,9 +248,11 @@ class AbstractProvider(FeatureProvider):
         self.emit(ProviderEvent.PROVIDER_CONFIGURATION_CHANGED, details)
 
     def emit_provider_error(self, details: ProviderEventDetails) -> None:
+        self.status = ProviderStatus.ERROR
         self.emit(ProviderEvent.PROVIDER_ERROR, details)
 
     def emit_provider_stale(self, details: ProviderEventDetails) -> None:
+        self.status = ProviderStatus.STALE
         self.emit(ProviderEvent.PROVIDER_STALE, details)
 
     def emit(self, event: ProviderEvent, details: ProviderEventDetails) -> None:
